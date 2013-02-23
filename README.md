@@ -1,9 +1,6 @@
-badgebit
-========
-
 ## What
 
-Badgebit turns a [Digispark](http://www.digistump.com) (tiny AVR device)
+**Badgebit** turns a [Digispark](http://www.digistump.com) (tiny AVR device)
 into aa Wiegand/HID-compatible badge access control device.
 
 Features:
@@ -14,7 +11,8 @@ Features:
 
 ## Hardware
 
-Board schematic and layout are [on upverter](http://upverter.com/mik3y/66e4df5b5d819d7e/BadgeBit).
+Board schematic and layout are
+[on Upverter](http://upverter.com/mik3y/66e4df5b5d819d7e/BadgeBit).
 
 ## Software
 
