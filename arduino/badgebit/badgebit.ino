@@ -1,29 +1,20 @@
-/**
- * badgebit.ino
- * Copyright 2013 Mike Wakerly <opensource@hoho.com>
- *
- * This file is part of the Badgebit project.  For more information, see
- * http://github.com/mik3y/badgebit/
- *
- * Badgebit is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * Badgebit is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Badgebit.  If not, see <http://www.gnu.org/licenses/>.
- */
+// badgebit.ino
+// Copyright 2013 The Unwashed Friars.
+// License: GPLv2.  See LICENSE.txt
+// Homepage: http://github.com/mik3y/badgebit
 
-#include <TinyWireM.h>
-#include <USI_TWI_Master.h>
-#include <PinChangeInterrupt.h>
-#include "Wiegand.h"
+// Overview
 
+// The main loop of this program continuously services the Wiegand bus.
+// Two pin change interrupts, one for each Wiegand pin, accumulate data
+// bits.
+//
+// A Wiegand message is considered complete after WIEGAND_TIMEOUT_MILLIS
+// have elapsed with no pulses.
+
+// Program Configuration
+
+// Pins.
 #define PIN_DATA_0 4
 #define PIN_DATA_1 5
 #define PIN_OUTPUT 3
@@ -31,7 +22,18 @@
 #define PIN_LED_RED 1
 #define PIN_LED_GREEN 0
 
+// Timeout after which a Wiegand message is considered complete.
 #define WIEGAND_TIMEOUT_MILLIS 1000
+
+// Delay during which the output pin will be held high.
+#define OUTPUT_DELAY_MILLIS 1000
+
+// Main program -- no changes necessary after this line.
+
+#include <TinyWireM.h>
+#include <USI_TWI_Master.h>
+#include <PinChangeInterrupt.h>
+#include "Wiegand.h"
 
 typedef unsigned char uint8_t;
 
@@ -54,9 +56,8 @@ static void onButtonRisingEdge() {
 }
 
 static void handleBadge(uint8_t *buf) {
-  // TODO: Send badge ID over serial.
   digitalWrite(PIN_OUTPUT, HIGH);
-  delay(500);
+  delay(OUTPUT_DELAY_MILLIS);
   digitalWrite(PIN_OUTPUT, LOW);
 }
 
@@ -82,11 +83,11 @@ static void processWiegand() {
 void setup() {
   pinMode(PIN_DATA_0, INPUT);
   digitalWrite(PIN_DATA_0, HIGH);
-  //attachPcInterrupt(PIN_DATA_0, onWiegandData0RisingEdge, RISING);
+  attachPcInterrupt(PIN_DATA_0, onWiegandData0RisingEdge, RISING);
 
   pinMode(PIN_DATA_1, INPUT);
   digitalWrite(PIN_DATA_1, HIGH);
-  //attachPcInterrupt(PIN_DATA_1, onWiegandData1RisingEdge, RISING);
+  attachPcInterrupt(PIN_DATA_1, onWiegandData1RisingEdge, RISING);
 
   gWiegand.reset();
   gLastWiegandInterruptMillis = 0;
@@ -96,7 +97,7 @@ void setup() {
 
   pinMode(PIN_BUTTON, INPUT);
   digitalWrite(PIN_BUTTON, HIGH);
-  //attachPcInterrupt(PIN_DATA_1, onButtonRisingEdge, RISING);
+  attachPcInterrupt(PIN_DATA_1, onButtonRisingEdge, RISING);
 
   pinMode(PIN_LED_RED, OUTPUT);
   digitalWrite(PIN_LED_RED, HIGH);
