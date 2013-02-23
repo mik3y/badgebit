@@ -1,7 +1,7 @@
 ## What
 
 **Badgebit** turns a [Digispark](http://www.digistump.com) (tiny AVR device)
-into aa Wiegand/HID-compatible badge access control device.
+into a Wiegand/HID-compatible badge access control device.
 
 Features:
 * Wiegand-compatible 2-wire reader interface.  Supports many devices (ie OmniProx OP40, ~$30 on ebay).
