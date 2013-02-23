@@ -20,6 +20,8 @@
 
 #define WIEGAND_BUFSIZ 5
 
+typedef unsigned char uint8_t;
+
 class Wiegand {
   public:
     Wiegand();
