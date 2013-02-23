@@ -9,10 +9,17 @@ Features:
 * Can be used without a host computer (standalone mode).
 * Single-button "learn mode" for storing or clearing known badge IDs.
 
+Potential uses:
+* Badgebit -> Lockitron -> Unlock home door
+* Badgebit -> [usb-serial-for-android](http://code.google.com/p/usb-serial-for-android) -> Self-checkout kiosk
+* Badgebit -> Raspbery pi -> Relay board -> Garage door opener
+
 ## Hardware
 
 Board schematic and layout are
 [on Upverter](http://upverter.com/mik3y/66e4df5b5d819d7e/BadgeBit).
+
+![Badgebit Schematic](http://i.imgur.com/hwB7GEq.png)
 
 ## Software
 
