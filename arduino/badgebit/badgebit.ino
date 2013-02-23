@@ -19,7 +19,9 @@
  * along with Badgebit.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "PinChangeInterrupt.h"
+#include <TinyWireM.h>
+#include <USI_TWI_Master.h>
+#include <PinChangeInterrupt.h>
 #include "Wiegand.h"
 
 #define PIN_DATA_0 4
@@ -80,11 +82,11 @@ static void processWiegand() {
 void setup() {
   pinMode(PIN_DATA_0, INPUT);
   digitalWrite(PIN_DATA_0, HIGH);
-  attachPcInterrupt(PIN_DATA_0, onWiegandData0RisingEdge, RISING);
+  //attachPcInterrupt(PIN_DATA_0, onWiegandData0RisingEdge, RISING);
 
   pinMode(PIN_DATA_1, INPUT);
   digitalWrite(PIN_DATA_1, HIGH);
-  attachPcInterrupt(PIN_DATA_1, onWiegandData1RisingEdge, RISING);
+  //attachPcInterrupt(PIN_DATA_1, onWiegandData1RisingEdge, RISING);
 
   gWiegand.reset();
   gLastWiegandInterruptMillis = 0;
@@ -94,7 +96,7 @@ void setup() {
 
   pinMode(PIN_BUTTON, INPUT);
   digitalWrite(PIN_BUTTON, HIGH);
-  attachPcInterrupt(PIN_DATA_1, onButtonRisingEdge, RISING);
+  //attachPcInterrupt(PIN_DATA_1, onButtonRisingEdge, RISING);
 
   pinMode(PIN_LED_RED, OUTPUT);
   digitalWrite(PIN_LED_RED, HIGH);
